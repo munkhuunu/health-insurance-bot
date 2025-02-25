@@ -22,7 +22,7 @@
     --background-input-container: #1E293B;
     --text-color: #FFFFFF;
     --border-color: #3B82F6;
-    --shadow-color: rgba(59, 130, 246, 0.4);
+    --shadow-color: rgba(107, 114, 128, 0.2); /* Neutral soft gray */
     --typing-indicator-color: #A5B4FC;
 }
 
@@ -30,12 +30,12 @@
     --background-body: #F0F4F8; /* Light blue-gray for light mode */
     --background-container: #FFFFFF; /* White container */
     --background-chat-box: #FFFFFF; /* White chat box */
-    --background-user: #3B82F6; /* Blue for user messages */
+    --background-user: #3783f5; /* Blue for user messages */
     --background-bot: #E5E7EB; /* Light gray for bot messages */
     --background-input-container: #FFFFFF; /* White input container */
     --text-color: #000000; /* Black text for light mode */
     --border-color: #3B82F6; /* Blue border */
-    --shadow-color: rgba(59, 130, 246, 0.2); /* Softer blue shadow */
+    --shadow-color: rgba(214, 215, 216, 0.185); /* Very soft light gray */
     --typing-indicator-color: #666666; /* Gray for typing indicator */
 }
 
@@ -120,16 +120,16 @@ body {
 }
 
 .chat-message {
-    max-width: 85%; /* Wider messages for readability */
+    max-width: 85%; /* Reduce the maximum width for all messages */
     padding: calc(var(--spacing-unit) - 2px);
     margin: var(--spacing-unit) 0;
-    border-radius: 12px; /* Softer corners */
-    font-size: var(--font-size-base); /* Readable text */
+    border-radius: 12px;
+    font-size: var(--font-size-base);
     word-wrap: break-word;
-    animation: fadeIn 0.5s ease-out forwards; /* Smoother animation */
+    animation: fadeIn 0.5s ease-out forwards;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 8px var(--shadow-color);
     transition: all 0.3s ease;
-    line-height: 1.5; /* Better line spacing */
+    line-height: 1.5;
 }
 
 .user {
@@ -155,7 +155,7 @@ body {
 
 .quick-reply {
     padding: 8px 16px; /* Larger touch targets */
-    background: #475569; /* Dark gray for buttons */
+    background: #728297; /* Dark gray for buttons */
     color: var(--text-color);
     border: none;
     border-radius: 10px; /* Rounded buttons */
@@ -163,6 +163,7 @@ body {
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 6px var(--shadow-color);
     transition: all 0.3s ease;
+    text-align: left;
 }
 
 .quick-reply:hover {

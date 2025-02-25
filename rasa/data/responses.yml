@@ -1,0 +1,9 @@
+responses:
+  utter_hospital_info:
+  - text: 🏥 {hospital_name} нь {icd10_name}-г эмчилдэг.
+  utter_insurance_info:
+  - text: 'Таны даатгалын талаар ерөнхий мэдээлэл: Даатгал нь эмнэлэг, эмийн зардлыг
+      хамарна.'
+  utter_medicine_info:
+  - text: 💊 {tablet_name} нь {icd10_name}-д хэрэглэгддэг.
+version: '3.1'

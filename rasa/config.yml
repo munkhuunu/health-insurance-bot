@@ -1,0 +1,21 @@
+language: "mn"  # Ensure Mongolian is correctly set
+pipeline:
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+- name: DIETClassifier
+  epochs: 100
+  entity_recognition: true
+- name: EntitySynonymMapper
+- name: ResponseSelector
+  epochs: 100
+- name: FallbackClassifier
+  threshold: 0.65    # Lowered threshold for better intent recognition
+
+policies:
+- name: MemoizationPolicy
+- name: RulePolicy
+- name: TEDPolicy
+  epochs: 100
+assistant_id: 20250221-150916-glad-mace

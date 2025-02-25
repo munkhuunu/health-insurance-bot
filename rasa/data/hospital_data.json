@@ -1,0 +1,20 @@
+{
+    "hospitals": [
+      {
+        "name": "Орхон аймгийн БОЭТ",
+        "city": "Орхон",
+        "insurance_contract": true
+      },
+      {
+        "name": "УБ Сонгдо",
+        "city": "Улаанбаатар",
+        "insurance_contract": true
+      },
+      {
+        "name": "Шастины нэрэмжит төв эмнэлэг",
+        "city": "Улаанбаатар",
+        "insurance_contract": false
+      }
+    ]
+  }
+  

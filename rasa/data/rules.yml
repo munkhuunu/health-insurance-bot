@@ -1,0 +1,15 @@
+rules:
+- rule: Greet User
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- rule: Handle Fallback
+  steps:
+    - intent: nlu_fallback
+    - action: utter_fallback
+
+- rule: Provide hospital info
+  steps:
+    - intent: ask_hospital
+    - action: action_fetch_hospital_info

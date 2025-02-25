@@ -1,0 +1,20 @@
+stories:
+- story: Insurance Inquiry
+  steps:
+    - intent: ask_insurance
+    - action: action_fetch_insurance_info
+
+- story: Hospital Inquiry
+  steps:
+    - intent: ask_hospital
+    - action: action_fetch_hospital_info
+
+- story: Medicine Inquiry
+  steps:
+    - intent: ask_medicine
+    - action: action_fetch_medicine_info
+
+- story: Goodbye Story
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye

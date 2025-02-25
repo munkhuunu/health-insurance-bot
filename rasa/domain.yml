@@ -1,0 +1,48 @@
+intents:
+  - greet
+  - ask_insurance
+  - ask_hospital
+  - ask_medicine
+  - goodbye
+  - nlu_fallback  # Ensures fallback messages are handled
+
+entities:
+  - hospital_name
+  - medicine_name
+
+slots:
+  hospital_name:
+    type: text
+    influence_conversation: True
+    mappings:
+      - type: from_entity
+        entity: hospital_name
+
+  medicine_name:
+    type: text
+    influence_conversation: True
+    mappings:
+      - type: from_entity
+        entity: medicine_name
+
+responses:
+  utter_greet:
+    - text: "Сайн байна уу! Танд хэрхэн туслах вэ?"
+  utter_fallback:
+    - text: "Уучлаарай, би ойлгосонгүй. Дахин оролдоно уу."
+  utter_insurance_info:
+    - text: "📢 Эрүүл мэндийн даатгалаар та тодорхой үйлчилгээ авах боломжтой."
+  utter_goodbye:
+    - text: "Баяртай! Дараа уулзъя!"
+  utter_hospital_info:
+    - text: "📢 ЭМД даатгалтай эмнэлгүүдийг хайж байна, түр хүлээнэ үү..."
+
+
+actions:
+  - action_fetch_insurance_info
+  - action_fetch_medicine_info
+  - action_fetch_hospital_info
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

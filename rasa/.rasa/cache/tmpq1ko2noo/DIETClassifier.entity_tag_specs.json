@@ -1,0 +1,28 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-hospital_name",
+      "2": "I-hospital_name",
+      "3": "L-hospital_name",
+      "4": "U-hospital_name",
+      "5": "B-medicine_name",
+      "6": "I-medicine_name",
+      "7": "L-medicine_name",
+      "8": "U-medicine_name",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-hospital_name": 1,
+      "I-hospital_name": 2,
+      "L-hospital_name": 3,
+      "U-hospital_name": 4,
+      "B-medicine_name": 5,
+      "I-medicine_name": 6,
+      "L-medicine_name": 7,
+      "U-medicine_name": 8,
+      "O": 0
+    },
+    "num_tags": 9
+  }
+]

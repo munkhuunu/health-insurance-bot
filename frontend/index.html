@@ -1,56 +1,47 @@
 <!DOCTYPE html>
-<html lang="mn">
+<html lang="mn" ng-app="core">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Chatbot</title>
-
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <!-- Chatbot Styles -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body ng-app="core" ng-controller="AppController as vm">
-    <!-- Chatbot UI -->
+<body ng-controller="AppController as vm" ng-class="{'dark-mode': vm.isDarkMode, 'light-mode': !vm.isDarkMode}">
     <div class="chat-container">
-        <!-- Chatbot Header -->
         <div class="chat-header">
-            <img src="logo.png" alt="Chatbot Logo" class="chat-logo"> 
-            <h2>Эрүүл мэндийн даатгал</h2>
-            <label class="theme-toggle">
-                <input type="checkbox" ng-model="vm.isDarkMode" ng-change="vm.toggleTheme()" />
-                <span class="toggle-label">Theme</span>
-                <span class="toggle-slider"></span>
+            <img src="logo.png" alt="Chatbot Logo" class="chat-logo">
+            <h3>Эрүүл мэндийн даатгал</h3>
+            <label class="theme-toggle" ng-click="vm.toggleTheme()">
+                <i class="icon" ng-class="{'fa fa-moon': vm.isDarkMode, 'fa fa-sun': !vm.isDarkMode}"></i>
             </label>
         </div>
-        <!-- Chat Messages -->
         <div class="chat-box" id="chat-box">
-            <div ng-repeat="message in vm.messages" class="chat-message" 
+            <div ng-repeat="message in vm.messages" class="chat-message"
                  ng-class="{'user': message.sender === 'user', 'bot': message.sender === 'bot'}">
                 <span>{{ message.text }}</span>
+                <div ng-if="message.quickReplies" class="quick-replies">
+                    <button ng-repeat="reply in message.quickReplies" 
+                            ng-click="vm.sendQuickReply(reply)" 
+                            class="quick-reply">{{ reply }}</button>
+                </div>
             </div>
-            <!-- Chatbot Typing Indicator -->
             <div class="typing-indicator" ng-show="vm.loading">
                 <span>.</span><span>.</span><span>.</span>
             </div>
         </div>
-
-        <!-- Chat Input -->
         <div class="chat-input-container">
-            <textarea ng-model="vm.userMessage" placeholder="Асуултаа бичнэ үү..."
-                      ng-keyup="adjustTextarea()"
-                      ng-keydown="$event.keyCode == 13 && !$event.shiftKey ? vm.sendMessage() : null"
-                      class="chat-input"></textarea>
-        
-            <button ng-click="vm.sendMessage()" ng-disabled="!vm.userMessage.trim()" class="send-button"> 
+            <input type="text" ng-model="vm.userMessage" placeholder="Бичих..."
+                   ng-keydown="$event.keyCode == 13 && vm.sendMessage()" class="chat-input">
+            <button ng-click="vm.sendMessage()" ng-disabled="!vm.userMessage.trim()" class="send-button">
                 <i class="fa-solid fa-arrow-right"></i>
             </button>
-        </div>     
+            <button ng-click="vm.startVoiceInput()" class="voice-button">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
     </div>
-
-    <!-- AngularJS (loaded after body to ensure DOM is ready) -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="./app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

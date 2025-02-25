@@ -5,19 +5,27 @@
         .module('core', [])
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$http', '$location', '$scope', '$rootScope', '$timeout', '$anchorScroll', '$window'];
+    AppController.$inject = ['$http', '$scope', '$timeout'];
 
-    function AppController($http, $location, $scope, $rootScope, $timeout, $anchorScroll, $window) {
+    function AppController($http, $scope, $timeout) {
         var vm = this;
 
         vm.messages = [];
         vm.userMessage = '';
         vm.loading = false;
-        vm.lastBotMessage = ''; // Store last bot response to prevent duplicates
-        vm.messages.push({ text: "Сайн байна уу? Эрүүл мэндийн даатгалын талаар танд ямар мэдээлэл хэрэгтэй байна вэ?", sender: "bot" });
+        vm.lastBotMessage = '';
         vm.isDarkMode = true; // Default to dark mode
 
-        // Scroll to bottom after new message
+        // Initial bot message with quick replies
+        vm.messages.push({
+            text: "Сайн байна уу? Эрүүл мэндийн даатгалын талаар танд ямар мэдээлэл хэрэгтэй байна вэ?",
+            sender: "bot",
+            quickReplies: ["Эрүүл мэндийн даатгалтай гэрээт эмнэлгүүд?", "Эрүүл мэндийн даатгалын шимтгэл төлөлтийн талаар?", "ЭМД-р хөнгөлөлттэй авч болох эмийн талаар?", "ЭМД-р хөнгөлөх тусламж, үйлчилгээнүүд?", "Эрүүл мэндийн даатгал гэж юу вэ?"]
+        });
+
+        // Apply dark mode by default
+        document.body.classList.add('dark-mode');
+
         function scrollToBottom() {
             $timeout(function () {
                 var chatBox = document.getElementById("chat-box");
@@ -27,7 +35,6 @@
             }, 100);
         }
 
-        // Typing effect for chatbot response
         function typeMessage(botResponse) {
             if (!botResponse || !botResponse.trim() || botResponse === "-") return;
 
@@ -41,18 +48,16 @@
                     index++;
                     $timeout(typeNextLetter, 50);
                 }
-                $scope.$apply(); // Ensure Angular updates the view
+                $scope.$apply();
                 scrollToBottom();
             }
 
             typeNextLetter();
         }
 
-        // Send message and get chatbot response
         vm.sendMessage = function () {
             if (!vm.userMessage || vm.userMessage.trim() === "") return;
 
-            // Allow Cyrillic, numbers, and extra symbols
             if (!/^[а-яА-ЯөӨүҮёЁ0-9\s.,!?@#$%^&*()_+=<>:;"'{}\[\]\\\/-]+$/.test(vm.userMessage)) {
                 var invalidMessage = "Би зөвхөн монгол хэлээр ойлгох тул та асуултаа кирилл үсгээр бичнэ үү.";
                 vm.messages.push({ text: vm.userMessage, sender: "user" });
@@ -61,7 +66,6 @@
                 return;
             }
 
-            // Add user message to chat
             vm.messages.push({ text: vm.userMessage, sender: "user" });
             scrollToBottom();
             vm.loading = true;
@@ -116,27 +120,31 @@
             vm.userMessage = '';
         };
 
-        // Adjust textarea height dynamically
-        vm.adjustTextarea = function() {
-            var textarea = document.querySelector(".chat-input");
-            if (textarea) {
-                textarea.style.height = "auto"; // Reset height
-                textarea.style.height = textarea.scrollHeight + "px"; // Set to content height
-            }
+        vm.sendQuickReply = function(reply) {
+            vm.userMessage = reply;
+            vm.sendMessage();
         };
 
-        // Initial scroll to bottom
-        scrollToBottom();
+        vm.startVoiceInput = function() {
+            // Simulate voice input (placeholder—replace with actual voice recognition logic)
+            var voiceMessage = "Хоолойн тусламжаар илгээгдсэн мессеж";
+            vm.userMessage = voiceMessage;
+            vm.sendMessage();
+            alert("Хоолойн тусламжаар мессеж илгээх боломж идэвхжсэн. (Симуляц) Дараа нь жинхэнэ API-г холбоно уу.");
+        };
 
-        // Theme toggle function
-        vm.toggleTheme = function() {
+        vm.toggleTheme = function () {
+            vm.isDarkMode = !vm.isDarkMode; // Toggle mode
+        
             if (vm.isDarkMode) {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
+                document.body.classList.add("dark-mode");
+                document.body.classList.remove("light-mode");
             } else {
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
+                document.body.classList.add("light-mode");
+                document.body.classList.remove("dark-mode");
             }
         };
+
+        scrollToBottom();
     }
 })();

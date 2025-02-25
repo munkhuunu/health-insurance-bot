@@ -1,402 +1,287 @@
-/* Default variables for light mode (fallback) */
 :root {
-    --background-body: #F0F4F8; /* Very light blue-gray for techy light mode */
-    --background-container: #E6ECF5; /* Light blue-gray for container */
-    --background-chat-box: #FFFFFF; /* White chat box in light mode */
-    --background-header: #007BFF; /* Bright blue header */
-    --background-user: #007BFF; /* Blue for user messages */
-    --background-bot: #D1DDF0; /* Light blue for bot messages */
-    --background-input-container: #E6ECF5; /* Match container for consistency */
-    --text-color: #000000; /* Black text for light mode */
-    --border-color: #007BFF; /* Blue border */
-    --shadow-color: rgba(0, 123, 255, 0.3); /* Subtle glowing blue shadow for light mode */
-    --typing-indicator-color: #666666; /* Gray for typing indicator in light mode */
+    --background-body: #0F172A; /* Deep dark blue background (default dark mode) */
+    --background-container: #1E293B; /* Darker blue for container */
+    --background-chat-box: #1E293B; /* Dark blue for chat box */
+    --background-user: #3B82F6; /* Blue for user messages */
+    --background-bot: #334155; /* Dark gray-blue for bot messages */
+    --background-input-container: #1E293B; /* Dark blue for input container */
+    --text-color: #FFFFFF; /* White text */
+    --border-color: #3B82F6; /* Blue border */
+    --shadow-color: rgba(59, 130, 246, 0.4); /* Blue shadow */
+    --typing-indicator-color: #A5B4FC; /* Light blue for typing indicator */
     --font-size-base: 16px; /* Base font size for readability */
-    --spacing-unit: 12px; /* Consistent spacing unit */
+    --spacing-unit: 12px; /* Consistent spacing */
 }
 
-/* Dark Mode Styles (override defaults) for Grok 3 style */
 .dark-mode {
-    --background-body: #0A1F3D; /* Deep, space-like blue background (Grok 3 signature) */
-    --background-container: #1E3A5F; /* Darker blue for container */
-    --background-chat-box: #152B50; /* Dark blue for chat box */
-    --background-header: #007BFF; /* Bright blue header */
-    --background-user: #007BFF; /* Blue for user messages */
-    --background-bot: #2D4A7A; /* Darker blue for bot messages */
-    --background-input-container: #1E3A5F; /* Dark blue for input container */
-    --text-color: #FFFFFF; /* White text for dark mode */
-    --border-color: #007BFF; /* Blue border */
-    --shadow-color: rgba(0, 123, 255, 0.6); /* Stronger glowing blue shadow for Grok 3 */
-    --typing-indicator-color: #A0C1FF; /* Light blue for typing indicator in dark mode */
+    --background-body: #0F172A;
+    --background-container: #1E293B;
+    --background-chat-box: #1E293B;
+    --background-user: #3B82F6;
+    --background-bot: #334155;
+    --background-input-container: #1E293B;
+    --text-color: #FFFFFF;
+    --border-color: #3B82F6;
+    --shadow-color: rgba(59, 130, 246, 0.4);
+    --typing-indicator-color: #A5B4FC;
 }
 
-/* General Styles */
+.light-mode {
+    --background-body: #F0F4F8; /* Light blue-gray for light mode */
+    --background-container: #FFFFFF; /* White container */
+    --background-chat-box: #FFFFFF; /* White chat box */
+    --background-user: #3B82F6; /* Blue for user messages */
+    --background-bot: #E5E7EB; /* Light gray for bot messages */
+    --background-input-container: #FFFFFF; /* White input container */
+    --text-color: #000000; /* Black text for light mode */
+    --border-color: #3B82F6; /* Blue border */
+    --shadow-color: rgba(59, 130, 246, 0.2); /* Softer blue shadow */
+    --typing-indicator-color: #666666; /* Gray for typing indicator */
+}
+
 body {
-    font-family: 'Roboto Mono', monospace; /* Futuristic, monospace font for Grok 3 */
+    font-family: 'Arial', sans-serif; /* Clean, readable font */
     background: var(--background-body);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ensure full viewport height */
-    margin: 0;
-    padding: 0;
-    transition: all 0.3s ease; /* Smooth transition for theme changes */
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
-/* Chat Container */
 .chat-container {
-    width: 100%; /* Full width by default, constrained by max-width */
-    max-width: 480px; /* Standard width for a compact, Grok 3-like interface */
-    height: 90vh; /* Take up most of the viewport height */
-    max-height: 680px; /* Limit maximum height for larger screens */
+    width: 100%;
+    max-width: 400px; /* Compact, centered design like screenshot */
+    height: 80vh; /* Reduced height to match screenshot */
+    max-height: 600px; /* Limit maximum height */
     background: var(--background-container);
-    border-radius: 8px; /* Very sharp corners for a techy, angular look */
-    box-shadow: 0px 0px 30px var(--shadow-color); /* Strong, prominent glowing blue shadow */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 8px 30px var(--shadow-color); /* Blue shadow */
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    position: relative;
     border: 2px solid var(--border-color);
     transition: all 0.3s ease;
-    margin: 15px; /* Slightly larger margin for a clean edge */
 }
 
-/* Chat Header with Logo */
 .chat-header {
-    background: var(--background-header);
+    background: var(--background-container); /* Match container background for seamless look */
     color: var(--text-color);
-    padding: var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 1.5); /* Adequate padding for logo and title */
     text-align: center;
-    font-size: calc(var(--font-size-base) + 4px); /* Larger, crisp header text */
-    font-family: 'Roboto Mono', monospace;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 2px solid #003D82; /* Darker blue for a techy border */
+    justify-content: space-between; /* Space between logo, title, and toggle */
+    border-bottom: 2px solid var(--border-color); /* Blue border to separate from chat box */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     transition: all 0.3s ease;
 }
 
 .chat-logo {
-    width: 45px; /* Slightly smaller, clean logo */
-    height: 45px;
-    margin-right: var(--spacing-unit);
-    filter: drop-shadow(0 0 12px var(--shadow-color)); /* Stronger, sharper glowing effect */
-    transition: all 0.3s ease;
+    width: 30px; /* Logo size from screenshot */
+    height: 30px;
+    filter: drop-shadow(0 0 8px var(--shadow-color));
+    transition: transform 0.3s ease; /* Smooth hover effect */
+    margin-left: calc(var(--spacing-unit) / 2); /* Small spacing */
 }
 
-/* Chat Box */
+.chat-logo:hover {
+    transform: scale(1.1); /* Slight zoom for interactivity */
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: calc(var(--spacing-unit) / 2);
+}
+
+.theme-toggle .icon {
+    font-size: calc(var(--font-size-base) + 2px);
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.theme-toggle .icon:hover {
+    color: var(--border-color); /* Blue on hover for feedback */
+}
+
 .chat-box {
-    flex-grow: 1;
+    flex: 1;
     overflow-y: auto;
     padding: var(--spacing-unit);
     background: var(--background-chat-box);
-    display: flex;
-    flex-direction: column;
     scroll-behavior: smooth;
     transition: all 0.3s ease;
 }
 
-/* Message Bubbles */
 .chat-message {
-    max-width: 88%; /* Slightly narrower for a clean, centered look */
+    max-width: 85%; /* Wider messages for readability */
     padding: calc(var(--spacing-unit) - 2px);
-    margin: calc(var(--spacing-unit) / 2);
-    border-radius: 6px; /* Very sharp corners for a futuristic feel */
-    font-size: var(--font-size-base);
+    margin: var(--spacing-unit) 0;
+    border-radius: 12px; /* Softer corners */
+    font-size: var(--font-size-base); /* Readable text */
     word-wrap: break-word;
-    opacity: 0;
-    animation: fadeIn 0.3s forwards;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1), 0 0 10px var(--shadow-color); /* Subtle shadow with strong blue glow */
+    animation: fadeIn 0.5s ease-out forwards; /* Smoother animation */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 8px var(--shadow-color);
     transition: all 0.3s ease;
+    line-height: 1.5; /* Better line spacing */
 }
 
 .user {
     align-self: flex-end;
     background: var(--background-user);
     color: var(--text-color);
-    padding: calc(var(--spacing-unit) - 2px) calc(var(--spacing-unit));
-    margin: calc(var(--spacing-unit) / 2) var(--spacing-unit);
-    border-radius: 6px;
-    font-size: calc(var(--font-size-base) + 2px);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Slight text shadow for readability */
+    margin-left: auto;
 }
 
 .bot {
     align-self: flex-start;
     background: var(--background-bot);
     color: var(--text-color);
-    padding: calc(var(--spacing-unit) - 2px) calc(var(--spacing-unit));
-    margin: calc(var(--spacing-unit) / 2) var(--spacing-unit);
-    border-radius: 6px;
-    font-size: calc(var(--font-size-base) + 2px);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Slight text shadow for readability */
+    margin-right: auto;
 }
 
-/* Typing Indicator */
-.typing-indicator {
+.quick-replies {
     display: flex;
-    align-items: center;
-    font-size: calc(var(--font-size-base) + 2px);
-    margin: calc(var(--spacing-unit) / 2) var(--spacing-unit);
-    opacity: 0;
-    animation: fadeIn 0.3s forwards;
-    color: var(--typing-indicator-color);
+    flex-wrap: wrap;
+    gap: 8px; /* Spacing between buttons */
+    margin-top: var(--spacing-unit);
+}
+
+.quick-reply {
+    padding: 8px 16px; /* Larger touch targets */
+    background: #475569; /* Dark gray for buttons */
+    color: var(--text-color);
+    border: none;
+    border-radius: 10px; /* Rounded buttons */
+    font-size: calc(var(--font-size-base) - 2px);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 6px var(--shadow-color);
     transition: all 0.3s ease;
 }
 
-.typing-indicator span {
-    animation: blink 1s infinite;
-    margin: 0 6px; /* More spacing for visibility */
-    color: var(--typing-indicator-color);
+.quick-reply:hover {
+    background: #64748B; /* Slightly lighter on hover */
+    transform: scale(1.05); /* Slight zoom for feedback */
 }
 
-/* Fade-in Effect */
+.quick-reply:active {
+    transform: scale(0.98); /* Slight press effect */
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    margin: calc(var(--spacing-unit) / 2);
+    color: var(--typing-indicator-color);
+    font-size: calc(var(--font-size-base) - 2px);
+}
+
+.typing-indicator span {
+    animation: blink 1.2s infinite ease-in-out;
+    margin: 0 4px;
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 0.2; }
+    0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
 }
 
-/* Chat Input Container */
 .chat-input-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: var(--spacing-unit);
-    border-top: 2px solid #003D82; /* Darker blue for a techy border */
     background: var(--background-input-container);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    box-shadow: 0px -2px 15px var(--shadow-color); /* Strong glowing blue shadow */
-    min-height: 80px; /* Slightly smaller for a compact look */
-    position: relative;
+    box-shadow: 0 -4px 20px var(--shadow-color); /* Stronger shadow */
     transition: all 0.3s ease;
 }
 
 .chat-input {
-    width: 83%; /* Slightly narrower for balance */
-    min-height: 40px; /* Taller for typing ease */
-    max-height: 150px;
+    flex: 1;
+    padding: 12px; /* Larger touch target */
     border: 2px solid var(--border-color);
-    padding: calc(var(--spacing-unit) - 2px) calc(var(--spacing-unit));
-    font-size: var(--font-size-base);
-    line-height: 1.5; /* Better line spacing */
-    font-family: 'Roboto Mono', monospace;
-    border-radius: 6px; /* Very sharp corners */
-    resize: none;
-    overflow-y: auto;
-    outline: none;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    border-radius: 20px; /* Rounded input */
     background: var(--background-chat-box);
     color: var(--text-color);
-    box-shadow: inset 0 0 15px var(--shadow-color); /* Stronger inner glowing blue effect */
+    font-size: var(--font-size-base);
+    outline: none;
+    margin-right: calc(var(--spacing-unit) / 2);
+    box-shadow: inset 0 0 10px var(--shadow-color);
     transition: all 0.3s ease;
 }
 
 .chat-input:focus {
-    border-color: #003D82; /* Darker blue for focus */
-    box-shadow: 0 0 25px var(--shadow-color), inset 0 0 15px var(--shadow-color); /* Enhanced glowing focus */
-    transition: all 0.3s ease;
+    border-color: #1D4ED8; /* Darker blue for focus */
+    box-shadow: 0 0 20px var(--shadow-color), inset 0 0 10px var(--shadow-color);
+    transform: scale(1.02); /* Slight zoom for feedback */
 }
 
-/* Send Button */
+.chat-input::placeholder {
+    color: var(--typing-indicator-color);
+    opacity: 0.8; /* More visible placeholder */
+}
+
 .send-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px; /* Slightly smaller for compactness */
-    height: 45px;
-    margin-left: var(--spacing-unit);
+    width: 40px; /* Smaller, compact button */
+    height: 40px;
     border-radius: 50%;
-    background-color: var(--background-user);
+    background: var(--border-color); /* Blue button */
     color: var(--text-color);
     border: none;
     cursor: pointer;
-    font-size: calc(var(--font-size-base) + 4px); /* Larger, clear icon */
-    transition: background 0.2s, transform 0.1s ease-in-out;
-    position: absolute;
-    right: var(--spacing-unit);
-    bottom: calc(var(--spacing-unit) + 2px);
-    box-shadow: 0 0 25px var(--shadow-color); /* Stronger glowing blue shadow */
-    transition: all 0.3s ease;
+    font-size: calc(var(--font-size-base) + 2px);
+    transition: background 0.3s, transform 0.2s ease;
+    box-shadow: 0 0 15px var(--shadow-color);
+    margin-left: calc(var(--spacing-unit) / 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .send-button:hover {
-    background-color: #003D82; /* Darker blue for hover */
-    transform: scale(1.1);
+    background: #1D4ED8; /* Darker blue on hover */
+    transform: scale(1.1); /* Subtle scaling */
 }
 
 .send-button:disabled {
-    background-color: #4A6EA9;
+    background: #4A6EA9;
     cursor: not-allowed;
     transform: none;
+    opacity: 0.6; /* Subtle disabled state */
 }
 
-/* Theme Toggle Switch */
-.theme-toggle {
-    position: absolute;
-    right: var(--spacing-unit);
+.send-button:disabled:hover {
+    transform: none; /* No hover effect when disabled */
+}
+
+.voice-button {
+    width: 40px; /* Same size as send button */
+    height: 40px;
+    border-radius: 50%;
+    background: var(--border-color); /* Blue button */
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    font-size: calc(var(--font-size-base) + 2px);
+    transition: background 0.3s, transform 0.2s ease;
+    box-shadow: 0 0 15px var(--shadow-color);
+    margin-left: calc(var(--spacing-unit) / 2);
     display: flex;
     align-items: center;
-    cursor: pointer;
+    justify-content: center;
 }
 
-.theme-toggle input {
-    display: none;
-}
-
-.toggle-label {
-    font-size: calc(var(--font-size-base) - 2px);
-    margin-right: 6px;
-    color: var(--text-color);
-    opacity: 0.7;
-    font-family: 'Roboto Mono', monospace;
-    transition: all 0.3s ease;
-}
-
-.toggle-slider {
-    width: 50px; /* Compact size for a clean look */
-    height: 25px;
-    background-color: #4A6EA9;
-    border-radius: 25px;
-    position: relative;
-    transition: all 0.3s ease;
-    box-shadow: inset 0 0 12px var(--shadow-color); /* Glowing effect for toggle */
-}
-
-.toggle-slider:before {
-    content: '';
-    position: absolute;
-    width: 20px; /* Compact knob */
-    height: 20px;
-    left: 2px;
-    top: 2px;
-    background-color: #FFFFFF;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 12px var(--shadow-color); /* Glowing effect for knob */
-}
-
-.theme-toggle input:checked + .toggle-label + .toggle-slider {
-    background-color: #007BFF;
-}
-
-.theme-toggle input:checked + .toggle-label + .toggle-slider:before {
-    transform: translateX(25px);
-}
-
-/* Responsive Design */
-
-/* Tablet and smaller desktops (768px and below) */
-@media screen and (max-width: 768px) {
-    .chat-container {
-        width: 85%;
-        max-width: 420px;
-        height: 85vh;
-        max-height: 620px;
-    }
-
-    .chat-header {
-        font-size: calc(var(--font-size-base) + 2px);
-    }
-
-    .chat-message {
-        max-width: 90%;
-        font-size: calc(var(--font-size-base) - 2px);
-    }
-
-    .chat-input {
-        width: 80%;
-    }
-
-    .send-button {
-        width: 40px;
-        height: 40px;
-        font-size: calc(var(--font-size-base) + 2px);
-    }
-
-    .toggle-label {
-        font-size: calc(var(--font-size-base) - 4px); /* Smaller label on tablets */
-    }
-
-    .toggle-slider {
-        width: 45px;
-        height: 22px;
-    }
-
-    .toggle-slider:before {
-        width: 18px;
-        height: 18px;
-        transform: translateX(23px);
-    }
-}
-
-/* Mobile devices (480px and below) */
-@media screen and (max-width: 480px) {
-    .chat-container {
-        width: 92%;
-        max-width: 380px;
-        height: 90vh;
-        max-height: 580px;
-    }
-
-    .chat-header {
-        padding: calc(var(--spacing-unit) / 2);
-        font-size: var(--font-size-base);
-    }
-
-    .chat-logo {
-        width: 35px;
-        height: 35px;
-    }
-
-    .chat-message {
-        max-width: 95%;
-        padding: calc(var(--spacing-unit) / 2);
-        font-size: calc(var(--font-size-base) - 4px);
-    }
-
-    .typing-indicator {
-        font-size: calc(var(--font-size-base) - 2px);
-    }
-
-    .chat-input-container {
-        min-height: 70px;
-        padding: calc(var(--spacing-unit) / 2);
-    }
-
-    .chat-input {
-        width: 78%;
-        min-height: 35px;
-        padding: calc(var(--spacing-unit) / 2);
-        font-size: calc(var(--font-size-base) - 2px);
-    }
-
-    .send-button {
-        width: 35px;
-        height: 35px;
-        right: calc(var(--spacing-unit) / 2);
-        bottom: calc(var(--spacing-unit) / 2);
-        font-size: var(--font-size-base);
-    }
-
-    .toggle-label {
-        display: none; /* Hide label on mobile for space */
-    }
-
-    .toggle-slider {
-        width: 40px;
-        height: 20px;
-    }
-
-    .toggle-slider:before {
-        width: 16px;
-        height: 16px;
-        transform: translateX(20px);
-    }
+.voice-button:hover {
+    background: #1D4ED8; /* Darker blue on hover */
+    transform: scale(1.1); /* Subtle scaling */
 }

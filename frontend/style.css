@@ -82,8 +82,8 @@ body {
 }
 
 .chat-logo {
-    width: 30px; /* Logo size from screenshot */
-    height: 30px;
+    width: 40px; /* Logo size from screenshot */
+    height: 40px;
     filter: drop-shadow(0 0 8px var(--shadow-color));
     transition: transform 0.3s ease; /* Smooth hover effect */
     margin-left: calc(var(--spacing-unit) / 2); /* Small spacing */

@@ -10,7 +10,7 @@
     --shadow-color: rgba(59, 130, 246, 0.4); /* Blue shadow */
     --typing-indicator-color: #A5B4FC; /* Light blue for typing indicator */
     --font-size-base: 16px; /* Base font size for readability */
-    --spacing-unit: 12px; /* Consistent spacing */
+    --spacing-unit: 16px; /* Increased spacing for desktop */
 }
 
 .dark-mode {
@@ -43,7 +43,7 @@ body {
     font-family: 'Arial', sans-serif; /* Clean, readable font */
     background: var(--background-body);
     margin: 0;
-    padding: 0;
+    padding: 20px; /* Desktop padding */
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -54,12 +54,11 @@ body {
 
 .chat-container {
     width: 100%;
-    max-width: 400px; /* Compact, centered design like screenshot */
-    height: 80vh; /* Reduced height to match screenshot */
-    max-height: 600px; /* Limit maximum height */
+    max-width: 800px; /* Wider for desktop */
+    height: 700px; /* Taller for desktop */
     background: var(--background-container);
     border-radius: 20px; /* Rounded corners */
-    box-shadow: 0 8px 30px var(--shadow-color); /* Blue shadow */
+    box-shadow: 0 10px 40px var(--shadow-color); /* Stronger shadow for desktop */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -70,7 +69,7 @@ body {
 .chat-header {
     background: var(--background-container); /* Match container background for seamless look */
     color: var(--text-color);
-    padding: calc(var(--spacing-unit) * 1.5); /* Adequate padding for logo and title */
+    padding: calc(var(--spacing-unit) * 1.5);
     text-align: center;
     display: flex;
     align-items: center;
@@ -82,11 +81,11 @@ body {
 }
 
 .chat-logo {
-    width: 40px; /* Logo size from screenshot */
-    height: 40px;
-    filter: drop-shadow(0 0 8px var(--shadow-color));
+    width: 50px; /* Larger logo for desktop */
+    height: 50px;
+    filter: drop-shadow(0 0 10px var(--shadow-color));
     transition: transform 0.3s ease; /* Smooth hover effect */
-    margin-left: calc(var(--spacing-unit) / 2); /* Small spacing */
+    margin-left: calc(var(--spacing-unit) / 2);
 }
 
 .chat-logo:hover {
@@ -101,7 +100,7 @@ body {
 }
 
 .theme-toggle .icon {
-    font-size: calc(var(--font-size-base) + 2px);
+    font-size: calc(var(--font-size-base) + 4px);
     color: var(--text-color);
     transition: color 0.3s ease;
 }
@@ -120,16 +119,16 @@ body {
 }
 
 .chat-message {
-    max-width: 85%; /* Reduce the maximum width for all messages */
-    padding: calc(var(--spacing-unit) - 2px);
+    max-width: 80%; /* Wider for desktop */
+    padding: calc(var(--spacing-unit) - 4px);
     margin: var(--spacing-unit) 0;
-    border-radius: 12px;
+    border-radius: 15px;
     font-size: var(--font-size-base);
     word-wrap: break-word;
     animation: fadeIn 0.5s ease-out forwards;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 8px var(--shadow-color);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1), 0 0 10px var(--shadow-color);
     transition: all 0.3s ease;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .user {
@@ -149,21 +148,21 @@ body {
 .quick-replies {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px; /* Spacing between buttons */
+    gap: 10px; /* Increased spacing for desktop */
     margin-top: var(--spacing-unit);
 }
 
 .quick-reply {
-    padding: 8px 16px; /* Larger touch targets */
+    padding: 10px 20px; /* Larger touch targets for desktop */
     background: #728297; /* Dark gray for buttons */
     color: var(--text-color);
     border: none;
-    border-radius: 10px; /* Rounded buttons */
+    border-radius: 15px; /* More rounded buttons */
     font-size: calc(var(--font-size-base) - 2px);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 6px var(--shadow-color);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 0 8px var(--shadow-color);
     transition: all 0.3s ease;
-    text-align: left;
+    text-align: center;
 }
 
 .quick-reply:hover {
@@ -185,7 +184,7 @@ body {
 
 .typing-indicator span {
     animation: blink 1.2s infinite ease-in-out;
-    margin: 0 4px;
+    margin: 0 5px;
 }
 
 @keyframes fadeIn {
@@ -203,13 +202,13 @@ body {
     align-items: center;
     padding: var(--spacing-unit);
     background: var(--background-input-container);
-    box-shadow: 0 -4px 20px var(--shadow-color); /* Stronger shadow */
+    box-shadow: 0 -5px 25px var(--shadow-color); /* Stronger shadow for desktop */
     transition: all 0.3s ease;
 }
 
 .chat-input {
     flex: 1;
-    padding: 12px; /* Larger touch target */
+    padding: 14px; /* Larger touch target for desktop */
     border: 2px solid var(--border-color);
     border-radius: 20px; /* Rounded input */
     background: var(--background-chat-box);
@@ -217,13 +216,13 @@ body {
     font-size: var(--font-size-base);
     outline: none;
     margin-right: calc(var(--spacing-unit) / 2);
-    box-shadow: inset 0 0 10px var(--shadow-color);
+    box-shadow: inset 0 0 12px var(--shadow-color);
     transition: all 0.3s ease;
 }
 
 .chat-input:focus {
     border-color: #1D4ED8; /* Darker blue for focus */
-    box-shadow: 0 0 20px var(--shadow-color), inset 0 0 10px var(--shadow-color);
+    box-shadow: 0 0 25px var(--shadow-color), inset 0 0 12px var(--shadow-color);
     transform: scale(1.02); /* Slight zoom for feedback */
 }
 
@@ -232,24 +231,24 @@ body {
     opacity: 0.8; /* More visible placeholder */
 }
 
-.send-button {
-    width: 40px; /* Smaller, compact button */
-    height: 40px;
+.send-button, .voice-button {
+    width: 50px; /* Larger buttons for desktop */
+    height: 50px;
     border-radius: 50%;
     background: var(--border-color); /* Blue button */
     color: var(--text-color);
     border: none;
     cursor: pointer;
-    font-size: calc(var(--font-size-base) + 2px);
+    font-size: calc(var(--font-size-base) + 4px);
     transition: background 0.3s, transform 0.2s ease;
-    box-shadow: 0 0 15px var(--shadow-color);
+    box-shadow: 0 0 20px var(--shadow-color);
     margin-left: calc(var(--spacing-unit) / 2);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.send-button:hover {
+.send-button:hover, .voice-button:hover {
     background: #1D4ED8; /* Darker blue on hover */
     transform: scale(1.1); /* Subtle scaling */
 }
@@ -263,26 +262,4 @@ body {
 
 .send-button:disabled:hover {
     transform: none; /* No hover effect when disabled */
-}
-
-.voice-button {
-    width: 40px; /* Same size as send button */
-    height: 40px;
-    border-radius: 50%;
-    background: var(--border-color); /* Blue button */
-    color: var(--text-color);
-    border: none;
-    cursor: pointer;
-    font-size: calc(var(--font-size-base) + 2px);
-    transition: background 0.3s, transform 0.2s ease;
-    box-shadow: 0 0 15px var(--shadow-color);
-    margin-left: calc(var(--spacing-unit) / 2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.voice-button:hover {
-    background: #1D4ED8; /* Darker blue on hover */
-    transform: scale(1.1); /* Subtle scaling */
 }

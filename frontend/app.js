@@ -5,22 +5,28 @@
         .module('core', [])
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$http', '$scope', '$timeout'];
+    AppController.$inject = ['$http', '$scope', '$timeout', '$window'];
 
-    function AppController($http, $scope, $timeout) {
+    function AppController($http, $scope, $timeout, $window) {
         var vm = this;
 
         vm.messages = [];
         vm.userMessage = '';
         vm.loading = false;
         vm.lastBotMessage = '';
-        vm.isDarkMode = true; // Default to dark mode
+        vm.isDarkMode = true; // Default to dark mode (like Egene VQA)
 
-        // Initial bot message with quick replies
+        // Initial bot message with quick replies like Egene VQA
         vm.messages.push({
-            text: "Сайн байна уу? Эрүүл мэндийн даатгалын талаар танд ямар мэдээлэл хэрэгтэй байна вэ?",
+            text: "Сайн байна уу? Би яаж туслах вэ?",
             sender: "bot",
-            quickReplies: ["Эрүүл мэндийн даатгалтай гэрээт эмнэлгүүд?", "Эрүүл мэндийн даатгалын шимтгэл төлөлтийн талаар?", "ЭМД-р хөнгөлөлттэй авч болох эмийн талаар?", "ЭМД-р хөнгөлөх тусламж, үйлчилгээнүүд?", "Эрүүл мэндийн даатгал гэж юу вэ?"]
+            quickReplies: [
+                "Эрүүл мэндийн даатгалтай гэрээт эмнэлгүүд?",
+                "Эрүүл мэндийн даатгалын шимтгэл төлөлтийн талаар?",
+                "ЭМД-р хөнгөлөлттэй авч болох эмийн талаар?",
+                "ЭМД-р хөнгөлөх тусламж, үйлчилгээнүүд?",
+                "Эрүүл мэндийн даатгал гэж юу вэ?"
+            ]
         });
 
         // Apply dark mode by default
@@ -39,14 +45,14 @@
             if (!botResponse || !botResponse.trim() || botResponse === "-") return;
 
             var message = { text: "", sender: "bot" };
-            vm.messages.push(message);
+            vm.messages.push(message); // Add bot response to chat messages, not input
             var index = 0;
 
             function typeNextLetter() {
                 if (index < botResponse.length) {
                     message.text += botResponse.charAt(index);
                     index++;
-                    $timeout(typeNextLetter, 50);
+                    $timeout(typeNextLetter, 25); /* Faster typing for full desktop */
                 }
                 $scope.$apply();
                 scrollToBottom();
@@ -60,28 +66,29 @@
 
             if (!/^[а-яА-ЯөӨүҮёЁ0-9\s.,!?@#$%^&*()_+=<>:;"'{}\[\]\\\/-]+$/.test(vm.userMessage)) {
                 var invalidMessage = "Би зөвхөн монгол хэлээр ойлгох тул та асуултаа кирилл үсгээр бичнэ үү.";
-                vm.messages.push({ text: vm.userMessage, sender: "user" });
+                vm.messages.push({ text: vm.userMessage, sender: "user" }); // Add user message to chat
                 vm.userMessage = '';
                 typeMessage(invalidMessage);
                 return;
             }
 
-            vm.messages.push({ text: vm.userMessage, sender: "user" });
+            vm.messages.push({ text: vm.userMessage, sender: "user" }); // Add user message to chat, not input
             scrollToBottom();
             vm.loading = true;
 
-            $http.post("http://localhost:5000/chat", { message: vm.userMessage }, {
+            $http.post("http://localhost:5055/webhook", { message: vm.userMessage }, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*" // Add CORS header to allow all origins
                 }
             })
             .then(function (response) {
                 $timeout(function () {
-                    console.log("✅ Success! Response from backend:", response.data);
+                    console.log("✅ Success! Response from Rasa:", response.data);
 
-                    var botResponse = response.data && response.data.response 
-                        ? response.data.response.join(" ").normalize()
-                        : "❌ Алдаа: rasa хариу илгээсэнгүй. Дахин оролдоно уу.";
+                    var botResponse = response.data && response.data.text 
+                        ? response.data.text
+                        : "❌ Алдаа: Rasa хариу илгээсэнгүй. Дахин оролдоно уу.";
                     
                     if (!botResponse.trim()) {
                         console.warn("⚠️ Empty response detected. Using fallback message.");
@@ -95,9 +102,9 @@
                     }
                     vm.lastBotMessage = botResponse;
 
-                    typeMessage(botResponse);
+                    typeMessage(botResponse); // Add bot response to chat, not input
                     vm.loading = false;
-                }, 1000);
+                }, 700); /* Slightly faster response for full desktop */
             })
             .catch(function (error) {
                 console.error("❌ Error:", error);
@@ -109,15 +116,17 @@
                     errorMessage = "❌ Серверийн алдаа! Дахин оролдоно уу.";
                 } else if (error.data && error.data.message) {
                     errorMessage = "❌ " + error.data.message;
+                } else if (error.status === 404) {
+                    errorMessage = "❌ /webhook эндпоинт олдсонгүй! Раса-гийн actions server-г шалгана уу.";
                 }
 
                 $timeout(function () {
-                    typeMessage(errorMessage);
+                    typeMessage(errorMessage); // Add error message to chat, not input
                     vm.loading = false;
                 }, 500);
             });
 
-            vm.userMessage = '';
+            vm.userMessage = ''; // Clear input after sending, ensure bot response stays in chat
         };
 
         vm.sendQuickReply = function(reply) {
@@ -126,11 +135,26 @@
         };
 
         vm.startVoiceInput = function() {
-            // Simulate voice input (placeholder—replace with actual voice recognition logic)
-            var voiceMessage = "Хоолойн тусламжаар илгээгдсэн мессеж";
-            vm.userMessage = voiceMessage;
-            vm.sendMessage();
-            alert("Хоолойн тусламжаар мессеж илгээх боломж идэвхжсэн. (Симуляц) Дараа нь жинхэнэ API-г холбоно уу.");
+            // Real voice input using Web Speech API
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'mn-MN'; // Mongolian language
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onresult = function(event) {
+                const voiceMessage = event.results[0][0].transcript;
+                vm.userMessage = voiceMessage;
+                vm.sendMessage();
+                $scope.$apply();
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Voice recognition error:", event.error);
+                typeMessage("❌ Хоолойн тусламжтай алдаа гарлаа. Дахин оролдоно уу.");
+            };
+
+            recognition.start();
+            typeMessage("Хоолойн тусламж идэвхжлээ. Яриагаа эхлүүлнэ үү...");
         };
 
         vm.toggleTheme = function () {
@@ -145,6 +169,21 @@
             }
         };
 
+        // Adjust container size dynamically based on window size
+        function adjustContainerSize() {
+            const container = document.querySelector('.chat-container');
+            const width = $window.innerWidth * 0.9; // 90% of viewport width
+            const height = $window.innerHeight * 0.8; // 80% of viewport height for Egene VQA
+            container.style.width = `${Math.min(width, 1000)}px`; // Limit max width to match Egene VQA
+            container.style.height = `${Math.min(height, 800)}px`; // Limit max height to match Egene VQA
+        }
+
+        angular.element($window).on('resize', function() {
+            $scope.$apply(adjustContainerSize);
+        });
+
+        // Initial size adjustment
+        adjustContainerSize();
         scrollToBottom();
     }
 })();

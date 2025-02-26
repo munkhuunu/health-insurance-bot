@@ -1,20 +1,37 @@
+version: "3.1"
 stories:
-- story: Insurance Inquiry
-  steps:
-    - intent: ask_insurance
-    - action: action_fetch_insurance_info
-
 - story: Hospital Inquiry
   steps:
-    - intent: ask_hospital
-    - action: action_fetch_hospital_info
+    - intent: ask_hospital_info
+    - action: action_get_hospital_info
 
 - story: Medicine Inquiry
   steps:
-    - intent: ask_medicine
-    - action: action_fetch_medicine_info
+    - intent: ask_medicine_info
+    - action: action_get_medicine_info
+
+- story: Insurance Fee Inquiry
+  steps:
+    - intent: ask_insurance_fee
+    - action: action_get_insurance_fee
+
+- story: Services Inquiry
+  steps:
+    - intent: ask_services
+    - action: action_get_services
+
+- story: Insurance Info Inquiry
+  steps:
+    - intent: ask_insurance_info
+    - action: action_get_insurance_info
 
 - story: Goodbye Story
   steps:
     - intent: goodbye
     - action: utter_goodbye
+
+- story: Fallback Story
+  steps:
+    - intent: nlu_fallback
+    - action: action_save_unanswered_question
+    - action: utter_default

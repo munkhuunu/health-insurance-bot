@@ -1,15 +1,28 @@
+version: "3.1"
+
 rules:
-- rule: Greet User
-  steps:
-    - intent: greet
-    - action: utter_greet
+  - rule: Greet User
+    steps:
+      - intent: greet
+      - action: utter_greet
 
-- rule: Handle Fallback
-  steps:
-    - intent: nlu_fallback
-    - action: utter_fallback
+  - rule: Handle Fallback
+    steps:
+      - intent: nlu_fallback
+      - action: action_save_unanswered_question
+      - action: utter_fallback
 
-- rule: Provide hospital info
-  steps:
-    - intent: ask_hospital
-    - action: action_fetch_hospital_info
+  - rule: Provide hospital info
+    steps:
+      - intent: ask_hospital_info
+      - action: action_get_hospital_info
+
+  - rule: Provide insurance info
+    steps:
+      - intent: ask_insurance_info
+      - action: utter_insurance_info
+
+  - rule: Provide payment methods
+    steps:
+      - intent: ask_payment_methods
+      - action: utter_payment_methods  # 🔹 Now correctly linked

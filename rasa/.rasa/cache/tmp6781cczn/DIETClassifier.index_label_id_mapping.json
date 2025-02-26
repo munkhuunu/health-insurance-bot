@@ -1,0 +1,11 @@
+{
+  "0": "ask_hospital_info",
+  "1": "ask_insurance_fee",
+  "2": "ask_insurance_info",
+  "3": "ask_medicine_info",
+  "4": "ask_payment_methods",
+  "5": "ask_services",
+  "6": "goodbye",
+  "7": "greet",
+  "8": "nlu_fallback"
+}

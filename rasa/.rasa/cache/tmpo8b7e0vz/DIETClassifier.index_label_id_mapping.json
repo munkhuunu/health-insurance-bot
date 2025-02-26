@@ -1,0 +1,12 @@
+{
+  "0": "ask_covered_services",
+  "1": "ask_discounted_medicine",
+  "2": "ask_hospital_info",
+  "3": "ask_insurance_fee",
+  "4": "ask_mandatory_insurance",
+  "5": "ask_medicine_info",
+  "6": "ask_payment_methods",
+  "7": "check_insurance_payment",
+  "8": "goodbye",
+  "9": "greet"
+}

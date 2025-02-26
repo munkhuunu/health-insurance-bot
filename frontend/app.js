@@ -21,14 +21,8 @@
             text: "Сайн байна уу? Би яаж туслах вэ?",
             sender: "bot",
             quickReplies: [
-                "Эрүүл мэндийн даатгалтай гэрээт эмнэлгүүд?",
-                "ЭМД-р хөнгөлөлттэй авч болох эмийн талаар?",
-                "Эрүүл мэндийн даатгалын шимтгэл төлөлтийн талаар?",
-                "ЭМД-р хөнгөлөх тусламж, үйлчилгээнүүд?",
-                "Эрүүл мэндийн даатгал гэж юу вэ?",
-                "Элэгний үрэвсэл-г ямар эмнэлэг эмчилдэг вэ?",
-                "Парацетамол хөнгөлөлттэй юу?",
-                "Баяртай"
+                "ЭМД төлбөрөө хаанаас төлөх вэ?",
+                "Ямар эмнэлгүүд ЭМД-тэй гэрээтэй вэ?"
             ]
         });
 
@@ -79,7 +73,7 @@
             scrollToBottom();
             vm.loading = true;
 
-            $http.post("http://localhost:5055/webhook", { message: vm.userMessage }, {
+            $http.post("http://127.0.0.1:5000/chat", { message: vm.userMessage }, {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*" // Add CORS header to allow all origins
@@ -87,11 +81,9 @@
             })
             .then(function (response) {
                 $timeout(function () {
-                    console.log("✅ Success! Response from Rasa:", response.data);
-
-                    var botResponse = response.data && response.data.text 
-                        ? response.data.text
-                        : "❌ Алдаа: Rasa хариу илгээсэнгүй. Дахин оролдоно уу.";
+                    console.log("✅ Success! Response from API:", response.data);
+            
+                    var botResponse = response.data.text || response.data.response?.[0] || "❌ Алдаа: Rasa хариу илгээсэнгүй.";
                     
                     if (!botResponse.trim()) {
                         console.warn("⚠️ Empty response detected. Using fallback message.");
@@ -104,10 +96,10 @@
                         return;
                     }
                     vm.lastBotMessage = botResponse;
-
-                    typeMessage(botResponse); // Add bot response to chat, not input
+            
+                    typeMessage(botResponse);
                     vm.loading = false;
-                }, 700); /* Slightly faster response for full desktop */
+                }, 700);
             })
             .catch(function (error) {
                 console.error("❌ Error:", error);

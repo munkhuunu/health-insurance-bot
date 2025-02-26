@@ -6,8 +6,12 @@ pipeline:
 - name: DIETClassifier
   epochs: 200
 policies:
-- name: FallbackPolicy
-  nlu_threshold: 0.4
-- name: RulePolicy
-- name: MemoizationPolicy
+  - name: RulePolicy
+  - name: MemoizationPolicy
+  - name: TEDPolicy
+  - name: FallbackPolicy
+    nlu_threshold: 0.55  # Reduce from 0.65 to allow slightly lower confidence
+    core_threshold: 0.30
+    fallback_action_name: "utter_fallback"
+
 assistant_id: 20250226-084145-best-dataset

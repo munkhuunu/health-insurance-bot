@@ -16,16 +16,19 @@
         vm.lastBotMessage = '';
         vm.isDarkMode = true; // Default to dark mode (like Egene VQA)
 
-        // Initial bot message with quick replies like Egene VQA
+        // Initial bot message with quick replies matching NLU examples
         vm.messages.push({
             text: "Сайн байна уу? Би яаж туслах вэ?",
             sender: "bot",
             quickReplies: [
                 "Эрүүл мэндийн даатгалтай гэрээт эмнэлгүүд?",
-                "Эрүүл мэндийн даатгалын шимтгэл төлөлтийн талаар?",
                 "ЭМД-р хөнгөлөлттэй авч болох эмийн талаар?",
+                "Эрүүл мэндийн даатгалын шимтгэл төлөлтийн талаар?",
                 "ЭМД-р хөнгөлөх тусламж, үйлчилгээнүүд?",
-                "Эрүүл мэндийн даатгал гэж юу вэ?"
+                "Эрүүл мэндийн даатгал гэж юу вэ?",
+                "Элэгний үрэвсэл-г ямар эмнэлэг эмчилдэг вэ?",
+                "Парацетамол хөнгөлөлттэй юу?",
+                "Баяртай"
             ]
         });
 

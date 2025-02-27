@@ -69,7 +69,7 @@ class ActionSaveUnansweredQuestion(Action):
             with conn.cursor() as cursor:
                 cursor.execute("INSERT INTO unanswered_questions (question) VALUES (%s)", (question,))
                 conn.commit()
-                dispatcher.utter_message(text="📌 Таны асуултыг бүртгэж авлаа, удахгүй хариу өгнө.")
+                dispatcher.utter_message(text="📌 Уучлаарай, би таны асуултад хамаарах мэдээлэлд хараахан суралцаагүй ба удахгүй суралцсан байх болно.")
         except Exception as e:
             print(f"❌ Error saving question: {e}")
             dispatcher.utter_message(text="Алдаа гарлаа, таны асуултыг хадгалах боломжгүй байна.")

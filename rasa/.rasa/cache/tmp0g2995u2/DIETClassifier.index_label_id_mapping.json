@@ -1,0 +1,23 @@
+{
+  "0": "ask_hospital_info",
+  "1": "ask_insurance_fee",
+  "2": "ask_insurance_info",
+  "3": "ask_medicine_info",
+  "4": "ask_payment_methods",
+  "5": "ask_services",
+  "6": "faq_check_premium_due",
+  "7": "faq_contract_hospitals",
+  "8": "faq_discounted_medicines",
+  "9": "faq_insurance_premium",
+  "10": "faq_mandatory_contributions",
+  "11": "faq_no_health_booklet",
+  "12": "faq_payment_channels",
+  "13": "faq_premium_exemption",
+  "14": "faq_rural_medicine",
+  "15": "faq_sealed_records",
+  "16": "faq_services_covered",
+  "17": "faq_waiting_time",
+  "18": "goodbye",
+  "19": "greet",
+  "20": "nlu_fallback"
+}
